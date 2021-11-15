@@ -1,10 +1,13 @@
 import React from 'react';
+import { Box } from '@mui/material';
+
+import Header from './Header';
 
 const App = () => {
   return (
-    <div className="App">
-      Hello There
-    </div>
+    <Box className="App">
+      <Header />
+    </Box>
   )
 }
 
