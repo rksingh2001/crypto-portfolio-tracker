@@ -7,14 +7,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { purple, indigo } from '@mui/material/colors';
 
 const theme = createTheme({
-    palette: {
-        primary: purple,
-        secondary: indigo,
-    }
+  palette: {
+    primary: purple,
+    secondary: indigo
+  }
 });
 
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <App />
-    </ThemeProvider>
-, document.getElementById('root'));
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root')
+);
