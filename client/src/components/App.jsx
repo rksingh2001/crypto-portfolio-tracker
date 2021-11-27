@@ -2,13 +2,13 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 import Header from './Header';
-import Portfolio from './Portfolio';
+import Coins from './Coins';
 
 const App = () => {
   return (
     <Box className="App">
       <Header />
-      <Portfolio />
+      <Coins />
     </Box>
   )
 }
