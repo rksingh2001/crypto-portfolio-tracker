@@ -1,5 +1,9 @@
 import React from 'react';
+
+import { NavLink } from 'react-router-dom';
+
 import { Button, Box, AppBar, Toolbar, Typography, Grid, Container } from '@mui/material';
+
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 const Header = () => {
@@ -20,13 +24,13 @@ const Header = () => {
             <Grid xs={2} item>
             </Grid>
             <Grid item>
-              <Button size="medium" variant="outlined" color="inherit">Portfolio</Button>
+              <Button component={NavLink} to="/Portfolio" size="medium" variant="outlined" color="inherit">Portfolio</Button>
             </Grid>
             <Grid item>
-              <Button size="medium" variant="outlined" color="inherit">Coins</Button>
+              <Button component={NavLink} to="/Coins" size="medium" variant="outlined" color="inherit">Coins</Button>
             </Grid>
             <Grid item>
-              <Button size="medium" variant="outlined" color="inherit">News</Button>
+              <Button component={NavLink} to="/News" size="medium" variant="outlined" color="inherit">News</Button>
             </Grid>
           </Grid>
         </Container>
