@@ -2,7 +2,7 @@ import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { Button, Box, AppBar, Toolbar, Typography, Grid, Container } from '@mui/material';
+import { Button, Box, AppBar, Typography, Grid, Container } from '@mui/material';
 
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 

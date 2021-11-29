@@ -6,11 +6,11 @@ import App from './components/App';
 import { BrowserRouter } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple, indigo } from '@mui/material/colors';
+import { teal, indigo } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
-    primary: purple,
+    primary: teal,
     secondary: indigo
   }
 });

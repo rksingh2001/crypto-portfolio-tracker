@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 const Portfolio = () => {
   return (
     <Box>
-      
+      Portfolio
     </Box>
   )
 }
