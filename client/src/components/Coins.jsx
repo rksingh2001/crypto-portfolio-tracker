@@ -3,7 +3,7 @@ import millify from 'millify';
 import { useState, useEffect } from 'react';
 import { Avatar, Box, Card, CardActionArea, CardContent, CardHeader, Container, Divider, Grid, Typography } from '@mui/material';
 
-import coinrankingApi from '../api/coinrankingApi';
+import getCoinsApi from '../api/getCoins';
 
 const Portfolio = () => {
   const [coinsStats, setCoinsStats] = useState({
@@ -18,8 +18,7 @@ const Portfolio = () => {
   useEffect(() => {
     try {
       const getCoins = async () => {
-        const response = await coinrankingApi.get();
-        await console.log(response?.data?.data?.stats);
+        const response = await getCoinsApi.get();
         await setCoinsData(response?.data?.data?.coins);
         await setCoinsStats(response?.data?.data?.stats);
       }
