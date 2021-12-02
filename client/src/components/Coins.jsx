@@ -5,6 +5,8 @@ import { Avatar, Box, Card, CardActionArea, CardContent, CardHeader, Container, 
 
 import getCoinsApi from '../api/getCoins';
 
+import CoinCard from './CoinCard';
+
 const Portfolio = () => {
   const [coinsStats, setCoinsStats] = useState({
     total: 0,
@@ -60,25 +62,7 @@ const Portfolio = () => {
           </Grid>
           {coinsData.map(coin => (
             <Grid key={coin.uuid} className="coin" item xs={6} md={4} lg={3}>
-              <Card variant="outlined">
-                <CardActionArea>
-                  <CardHeader
-                    title={coin.name}
-                    subheader={"$" + millify(coin.price)}
-                    avatar={
-                      <Avatar src={coin.iconUrl} />
-                    }
-                  />
-                  <CardContent>
-                    <Typography color="gray" variant="subtitle1">
-                      {"Market Cap: $" + millify(coin.marketCap)}
-                    </Typography>
-                    <Typography color="gray" variant="subtitle1">
-                      {"Current Volume: $" + millify(coin.volume)}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+              <CoinCard coin={coin} />
             </Grid>
           ))}
         </Grid>
