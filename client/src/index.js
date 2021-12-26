@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import App from './components/App';
-
 import { BrowserRouter } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal, indigo } from '@mui/material/colors';
+
+import App from './components/App';
 
 const theme = createTheme({
   palette: {

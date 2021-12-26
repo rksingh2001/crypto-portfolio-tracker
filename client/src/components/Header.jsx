@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { Button, Box, AppBar, Typography, Grid, Container } from '@mui/material';
-
+import { Button, Box, AppBar, Typography, Grid, Container, Dialog, DialogContent, DialogActions, TextField } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Header = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleSearchOpen = () => {
+    setIsDialogOpen(true);
+  }
+
+  const handleSearchClose = () => {
+    setIsDialogOpen(false);
+  }
+
   return (
     <Box className="header">
       <AppBar sx={{ justifyContent: "center", alignItems: "center", height: "90px" }} position="fixed" color="secondary">
-        {/* <Toolbar variant="regular" width="100%" disableGutters={true}> */}
         <Container>
           <Grid container width="100%" spacing={1}>
             <Grid item xs={6}>
@@ -24,6 +33,9 @@ const Header = () => {
             <Grid xs={2} item>
             </Grid>
             <Grid item>
+              <Button onClick={handleSearchOpen} size="medium" variant="outlined" color="inherit"><SearchIcon color="inherit" /></Button>
+            </Grid>
+            <Grid item>
               <Button component={NavLink} to="/Portfolio" size="medium" variant="outlined" color="inherit">Portfolio</Button>
             </Grid>
             <Grid item>
@@ -34,8 +46,12 @@ const Header = () => {
             </Grid>
           </Grid>
         </Container>
-        {/* </Toolbar>  */}
       </AppBar>
+      <Dialog open={isDialogOpen} onClose={handleSearchClose} fullWidth>
+        <DialogContent>
+          <TextField placeholder="Search..." fullWidth color="secondary" variant="outlined" autoFocus></TextField>
+        </DialogContent>
+      </Dialog>
     </Box>
   )
 }
