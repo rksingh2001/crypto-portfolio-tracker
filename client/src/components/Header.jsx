@@ -6,6 +6,8 @@ import { Button, Box, AppBar, Typography, Grid, Container, Dialog, DialogContent
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SearchIcon from '@mui/icons-material/Search';
 
+import Search from './Search';
+
 const Header = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -49,7 +51,8 @@ const Header = () => {
       </AppBar>
       <Dialog open={isDialogOpen} onClose={handleSearchClose} fullWidth>
         <DialogContent>
-          <TextField placeholder="Search..." fullWidth color="secondary" variant="outlined" autoFocus></TextField>
+          <Search />
+          {/* <TextField placeholder="Search..." fullWidth color="secondary" variant="outlined" autoFocus></TextField> */}
         </DialogContent>
       </Dialog>
     </Box>
