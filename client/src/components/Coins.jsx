@@ -21,8 +21,9 @@ const Portfolio = () => {
     try {
       const getCoins = async () => {
         const response = await getCoinsApi.get();
-        await setCoinsData(response?.data?.data?.coins);
-        await setCoinsStats(response?.data?.data?.stats);
+        console.log(response?.data?.coins)
+        setCoinsData(response?.data?.coins);
+        setCoinsStats(response?.data?.stats);
       }
       getCoins();
     } catch (error) {

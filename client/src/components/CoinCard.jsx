@@ -5,7 +5,6 @@ import { Avatar, Card, CardActionArea, CardContent, CardHeader, Grid, Typography
 
 const CoinCard = ({ coin }) => {
   return (
-
     <Card variant="outlined">
       <CardActionArea>
         <CardHeader
@@ -20,7 +19,7 @@ const CoinCard = ({ coin }) => {
             {"Market Cap: $" + millify(coin.marketCap)}
           </Typography>
           <Typography color="gray" variant="subtitle1">
-            {"Current Volume: $" + millify(coin.volume)}
+            {"Current Volume: $" + millify(coin["24hVolume"])}
           </Typography>
         </CardContent>
       </CardActionArea>
