@@ -9,25 +9,44 @@ const COINRANKING_API_URL="https://api.coinranking.com/v2/"
 const { COINRANKING_API_KEY } = process.env
 
 const app = express();
-app.use(cors());
 
-const searchApi = axios.create({
-  baseURL: COINRANKING_API_URL + "/search-suggestions",
+const coinrankingAPI = axios.create({
+  baseURL: COINRANKING_API_URL,
   headers: {
     'x-access-token': COINRANKING_API_KEY
   },
 })
 
-app.get("/", async (req, res) => {
+app.use(cors());
+
+app.get("/coins", async (req, res) => {
   try {
-    const response = await searchApi.get("/", {
-      params: {
-        query: req.query.query,
-      }
+    const response = await coinrankingAPI.get(req.path, {
+      params: req?.query
     });
     res.send(response?.data?.data);
   } catch (error) {
-    console.log(error);
+    console.log("error on fetching /coins", error);
+  }
+})
+
+app.get("/search-suggestions", async (req, res) => {
+  try {
+    const response = await coinrankingAPI.get(req.path, {
+      params: req.query
+    }); 
+    res.send(response?.data?.data);
+  } catch (error) {
+    console.log("error on fetching /search-suggestions", error);
+  }
+})
+
+app.get("/coin/:uuid", async (req, res) => {
+  try {
+    const response = await coinrankingAPI.get(req.path)
+    res.send(response?.data?.data);
+  } catch (error) {
+    console.log("error on fetching /coin/:uuid", error);
   }
 })
 
