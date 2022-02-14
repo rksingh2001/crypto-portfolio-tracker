@@ -19,7 +19,7 @@ const Search = () => {
         });
         
         setCoins(response?.data?.coins)
-        // console.log(response?.data?.coins)
+        console.log(response?.data?.coins)
       } 
       search();
     } catch (error) {

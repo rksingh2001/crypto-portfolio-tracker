@@ -4,11 +4,14 @@ import axios from 'axios';
 // const { REACT_APP_X_RAPIDAPI_KEY, REACT_APP_X_RAPIDAPI_HOST } = process.env;
 
 // CORS proxy server
-const COINRANKING_API_URL="http://localhost:8080"
+const COINRANKING_API_URL = "http://localhost:8080"
 const { COINRANKING_API_KEY } = process.env
 
 export default axios.create({
-  baseURL: COINRANKING_API_URL + "/coins"
+  baseURL: COINRANKING_API_URL + "/coins",
+  params: {
+    limit: 12,
+  }
 })
 
 // export default axios.create({
