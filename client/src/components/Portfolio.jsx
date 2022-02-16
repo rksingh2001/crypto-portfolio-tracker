@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/system';
 import { Card, CardHeader, Container, Grid, Typography } from '@mui/material';
-
 import getCoinApi from '../api/getCoin';
-
 import CoinCard from './CoinCard';
 
 const Portfolio = () => {

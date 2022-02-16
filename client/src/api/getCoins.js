@@ -5,7 +5,6 @@ import axios from 'axios';
 
 // CORS proxy server
 const COINRANKING_API_URL = "http://localhost:8080"
-const { COINRANKING_API_KEY } = process.env
 
 export default axios.create({
   baseURL: COINRANKING_API_URL + "/coins",
