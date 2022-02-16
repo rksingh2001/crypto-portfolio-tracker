@@ -28,6 +28,7 @@ const Header = () => {
 
   const handlePopoverClick = (event) => {
     console.log("clicked");
+    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   }
 
@@ -87,8 +88,8 @@ const Header = () => {
             <Grid item>
               {imageURL ?
                 <>
-                <IconButton size="small" onClick={handlePopoverClick}>
-                  <Avatar alt="userprofile" src={imageURL} />
+                <IconButton style={{ height: "40px", width:"40px" }} onClick={handlePopoverClick}>
+                  <Avatar alt="userprofile" src={imageURL} onCLick={handlePopoverClick} />
                 </IconButton>
                 <Popover
                   open={Boolean(anchorEl)}
