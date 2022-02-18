@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/system';
-import { Card, CardHeader, Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Paper, Typography } from '@mui/material';
 import getCoinApi from '../api/getCoin';
 import CoinCard from './CoinCard';
 
@@ -31,11 +31,9 @@ const Portfolio = () => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Card variant="outlined">
-              <CardHeader
-                title={<Typography variant="h4" color="secondary">Portfolio</Typography>}
-              />
-            </Card>
+            <Paper elevation={0} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px", border: "1px solid", borderColor: "lightgray" }}>
+              <Typography width="40%" variant="h4" color="secondary">Portfolio</Typography>
+            </Paper>
           </Grid>
           {portfolio.length ? portfolio.map(coin => (
             <Grid key={coin.uuid} className="coin" item xs={6} md={4} lg={3}>

@@ -17,9 +17,7 @@ const Header = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user)
         setImageURL(user.photoURL)
-        console.log(user.displayName);
       } else {
         console.log("user is signed out")
       }
@@ -27,8 +25,6 @@ const Header = () => {
   }, [])
 
   const handlePopoverClick = (event) => {
-    console.log("clicked");
-    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget);
   }
 

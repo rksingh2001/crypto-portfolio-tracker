@@ -1,19 +1,28 @@
 import React from 'react';
 import millify from 'millify';
 
-import { Avatar, Card, CardActionArea, CardContent, CardHeader, Grid, Typography } from '@mui/material';
+import { Avatar, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
+import AddCoin from './AddCoin';
 
 const CoinCard = ({ coin }) => {
   return (
     <Card variant="outlined">
       <CardActionArea>
-        <CardHeader
-          title={coin.name}
-          subheader={"$" + millify(coin.price)}
-          avatar={
-            <Avatar src={coin.iconUrl} />
-          }
-        />
+        <div className="custom-header" style={{
+          display: "flex",
+          justifyContent:"space-around",
+          alignItems:"center"
+        }}>
+          <CardHeader
+            title={coin.name}
+            subheader={"$" + millify(coin.price)}
+            avatar={
+              <Avatar src={coin.iconUrl} />
+            }
+            style={{width: "50%"}}
+          />
+          <AddCoin />
+        </div>
         <CardContent>
           <Typography color="gray" variant="subtitle1">
             {"Market Cap: $" + millify(coin.marketCap)}
