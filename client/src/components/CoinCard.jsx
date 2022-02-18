@@ -2,7 +2,7 @@ import React from 'react';
 import millify from 'millify';
 
 import { Avatar, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
-import AddCoin from './AddCoin';
+import AddCoinButton from './AddCoinButton';
 
 const CoinCard = ({ coin }) => {
   return (
@@ -10,7 +10,7 @@ const CoinCard = ({ coin }) => {
       <CardActionArea>
         <div className="custom-header" style={{
           display: "flex",
-          justifyContent:"space-around",
+          justifyContent:"center",
           alignItems:"center"
         }}>
           <CardHeader
@@ -19,9 +19,9 @@ const CoinCard = ({ coin }) => {
             avatar={
               <Avatar src={coin.iconUrl} />
             }
-            style={{width: "50%"}}
-          />
-          <AddCoin />
+            style={{width: "60%"}}
+          />  
+          <AddCoinButton coin={coin} />
         </div>
         <CardContent>
           <Typography color="gray" variant="subtitle1">

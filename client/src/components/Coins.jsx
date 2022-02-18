@@ -47,13 +47,13 @@ const Portfolio = () => {
                   Total Coins: {millify(coinsStats.total)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
-                  Total MarketCap: {millify(coinsStats.totalMarketCap)}
+                  Total MarketCap: {"$"+millify(coinsStats.totalMarketCap)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
                   Total Markets: {millify(coinsStats.totalMarkets)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit" >
-                  Total Last 24 hr Volume: {millify(coinsStats.total24hVolume)}
+                  Total Last 24 hr Volume: {"$"+millify(coinsStats.total24hVolume)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
                   Total Exchanges: {millify(coinsStats.totalExchanges)}

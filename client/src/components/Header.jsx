@@ -10,7 +10,7 @@ import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "firebas
 const provider = new GoogleAuthProvider();
 
 const Header = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [imageURL, setImageURL] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -47,11 +47,11 @@ const Header = () => {
   }
 
   const handleSearchOpen = () => {
-    setIsDialogOpen(true);
+    setIsSearchOpen(true);
   }
 
   const handleSearchClose = () => {
-    setIsDialogOpen(false);
+    setIsSearchOpen(false);
   }
 
   return (
@@ -112,7 +112,7 @@ const Header = () => {
           </Grid>
         </Container>
       </AppBar>
-      <Dialog open={isDialogOpen} onClose={handleSearchClose} fullWidth>
+      <Dialog open={isSearchOpen} onClose={handleSearchClose} fullWidth>
         <DialogContent>
           <Search />
         </DialogContent>
