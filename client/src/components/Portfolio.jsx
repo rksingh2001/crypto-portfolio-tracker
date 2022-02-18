@@ -5,7 +5,6 @@ import getCoinApi from '../api/getCoin';
 import CoinCard from './CoinCard';
 
 const Portfolio = () => {
-
   const [portfolio, setPortfolio] = useState([]);
 
   useEffect(() => {

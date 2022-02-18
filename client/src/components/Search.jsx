@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Avatar, Container, TextField, Grid, Typography } from '@mui/material';
+import { Avatar, Box, TextField, Grid, Typography } from '@mui/material';
 import searchApi from '../api/search';
+import AddCoinButton from './AddCoinButton';
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [coins, setCoins] = useState([]);
+  console.log(coins[0])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(query);
 
     try {
       const search = async () => {
@@ -19,7 +20,6 @@ const Search = () => {
         });
         
         setCoins(response?.data?.coins)
-        console.log(response?.data?.coins)
       } 
       search();
     } catch (error) {
@@ -40,14 +40,21 @@ const Search = () => {
           autoFocus
         />
       </form>
-      <Container>
+      <Box style={{ displaye:"flex", justifyContent:"space-between", padding: "5px"}}>
         {coins.map(coin => (
-          <Grid sx={{padding: '6px'}} container key={coin.uuid}>
-            <Grid item xs={2}><Avatar src={coin.iconUrl} /></Grid>
-            <Grid item xs={10}><Typography variant="h5" color="initial">{coin.name}</Typography></Grid>
+          <Grid container key={coin.uuid} style={{ marginBottom: "2px", marginTop:"1px" }} >
+            <Grid item sx={{}} display="flex" flexDirection="row" justifyContent="left" xs={1}>
+              <Avatar sx={{ width: "30px", height: "30px" }} src={coin.iconUrl} />
+            </Grid>
+            <Grid item sx={{}} display="flex" flexDirection="row" justifyContent="left" xs={10}>
+              <Typography variant="h5" color="initial">{coin.name}</Typography>
+            </Grid>
+            <Grid item>
+              <AddCoinButton coin={coin}/>
+            </Grid>
           </Grid>
         ))}
-      </Container>
+      </Box>
     </>
   )
 }
