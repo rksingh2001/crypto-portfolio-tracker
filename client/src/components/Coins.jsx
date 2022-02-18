@@ -71,14 +71,14 @@ const Portfolio = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid display="flex" justifyContent="center" item xs={12}>
-            <Pagination onChange={handlePageChange} color="secondary" count={10} />
-          </Grid>
           {coinsData.map(coin => (
             <Grid key={coin.uuid} className="coin" item xs={6} md={4} lg={3}>
               <CoinCard coin={coin} />
             </Grid>
           ))}
+          <Grid display="flex" justifyContent="center" item xs={12}>
+            <Pagination onChange={handlePageChange} color="secondary" count={10} />
+          </Grid>
         </Grid>
       </Container>
     </>

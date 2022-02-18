@@ -36,7 +36,7 @@ const AddCoinModal = ({ coin }) => {
       <Grid item xs={12}>
         <Typography> Price: {"$"+millify(coin.price)} </Typography>
         {coin.marketCap && <Typography> Marketcap: {"$"+millify(coin.marketCap)} </Typography>}
-        {coin["24hVoume"] && <Typography> Current Volumne: {"$"+millify(coin["24hVolume"])} </Typography>}
+        {coin["24hVolume"] && <Typography> Current Volumne: {"$"+millify(coin["24hVolume"])} </Typography>}
       </Grid>
       <Grid item xs={12}>
         <TextField onChange={handlePriceChange} value={price} size="small" label="Buy Price (ex. $20)" variant="outlined" color="secondary" fullWidth />
