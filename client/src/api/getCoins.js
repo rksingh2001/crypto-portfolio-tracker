@@ -8,9 +8,6 @@ const COINRANKING_API_URL = "http://localhost:8080"
 
 export default axios.create({
   baseURL: COINRANKING_API_URL + "/coins",
-  params: {
-    limit: 12,
-  }
 })
 
 // export default axios.create({
