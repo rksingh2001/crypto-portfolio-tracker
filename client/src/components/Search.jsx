@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Box, TextField, Grid, Typography } from '@mui/material';
+import { Avatar, Button, TextField, Grid, Typography } from '@mui/material';
 import searchApi from '../api/search';
 import AddCoinButton from './AddCoinButton';
 
@@ -39,7 +39,7 @@ const Search = () => {
           autoFocus
         />
       </form>
-      {query && <br />}
+      {coins[0] && <br />}
       {coins.map(coin => (
         <Button color="secondary" fullWidth>
           <Grid container key={coin.uuid} style={{  }} >
@@ -50,7 +50,7 @@ const Search = () => {
               <Typography variant="h6" color="initial">{coin.name}</Typography>
             </Grid>
             <Grid item>
-              <AddCoinButton coin={coin}/>
+              <AddCoinButton coinData={coin}/>
             </Grid>
           </Grid>
         </Button>

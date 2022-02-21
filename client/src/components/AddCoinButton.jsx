@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Dialog, DialogContent, IconButton } from '@mui/material';
-import AddCoinModal from './AddCoinModal';
+import { IconButton } from '@mui/material';
+import { CoinContext, DialogContext } from './App';
 
-const AddCoin = ({ coin }) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+const AddCoin = ({ coinData, setLinkAllowance }) => {
+  const {setCoin} = useContext(CoinContext)
+  const {setIsDialogOpen} = useContext(DialogContext);
 
   const handleDialogOpen = () => {
     setIsDialogOpen(true);
+    setCoin(coinData);
   }
 
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
+  const handleMouseEnter = () => {
+    setLinkAllowance(false);
+  }
+
+  const handleMouseLeave = () => {
+    setLinkAllowance(true)
   }
 
   return (
     <>
-      <IconButton onClick={handleDialogOpen} style={{ width: "40px", height: "40px" }}>
+      <IconButton onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} onClick={handleDialogOpen} style={{ width: "40px", height: "40px" }}>
         <AddIcon size="large" />
       </IconButton>
-      <Dialog open={isDialogOpen} onClose={handleDialogClose} fullWidth>
-        <DialogContent>
-          <AddCoinModal coin={coin} />
-        </DialogContent>
-      </Dialog>
     </>
   )
 }

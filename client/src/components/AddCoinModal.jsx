@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import millify from 'millify';
 import { Avatar, Button, Grid, TextField, Typography } from '@mui/material';
+import { CoinContext } from './App';
 
 const re = /^[0-9\b]+$/;
 
-const AddCoinModal = ({ coin }) => {
-  const [price, setPrice] = useState(Math.floor(coin.price));
+const AddCoinModal = () => {
   const [value, setValue] = useState(0);
+  const {coin} = useContext(CoinContext);
+  const [price, setPrice] = useState(Math.floor(coin.price));
 
   const handlePriceChange = (event) => {
     if (event.target.value === '' || re.test(event.target.value)) {
