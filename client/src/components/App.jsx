@@ -10,12 +10,12 @@ import News from './News';
 import Coin from './Coin';
 import AddCoinModal from './AddCoinModal';
 
-export const CoinContext = createContext();
-export const DialogContext = createContext();
+export const CoinContext = createContext({});
+export const DialogContext = createContext({});
 
 const App = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [coin, setCoin] = useState("raunak");
+  const [coin, setCoin] = useState([]);
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
@@ -25,11 +25,11 @@ const App = () => {
     <DialogContext.Provider
       value={{isDialogOpen, setIsDialogOpen}}
     >
-      <Box className="App">
-        <Header />
-        <CoinContext.Provider
+      <CoinContext.Provider
           value={{coin, setCoin}}
         >
+      <Box className="App">
+        <Header />
           <Routes>
             <Route path="/" element={<Navigate replace to="/Coins" />} />
             <Route path="/Portfolio" element={<Portfolio />} />
@@ -42,8 +42,8 @@ const App = () => {
               <AddCoinModal />
             </DialogContent>
           </Dialog>
-        </CoinContext.Provider>
       </Box>
+      </CoinContext.Provider>
     </DialogContext.Provider>
   )
 }

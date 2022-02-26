@@ -114,7 +114,7 @@ const Header = () => {
       </AppBar>
       <Dialog open={isSearchOpen} onClose={handleSearchClose} fullWidth>
         <DialogContent>
-          <Search />
+          <Search setIsSearchOpen={setIsSearchOpen} />
         </DialogContent>
       </Dialog>
     </Box>
