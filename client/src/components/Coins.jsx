@@ -27,7 +27,6 @@ const Portfolio = () => {
             offset: 12 * (page - 1)
           }
         });
-        console.log(response?.data?.coins)
         setCoinsData(response?.data?.coins);
         setCoinsStats(response?.data?.stats);
       }

@@ -2,17 +2,18 @@ import React, { useState, useContext } from 'react';
 import millify from 'millify';
 import { Avatar, Button, Grid, TextField, Typography } from '@mui/material';
 import { CoinContext } from './App';
-// import { portfoliosRef } from '../firebase/firebase.js';
-// import { doc, setDoc } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
+import { updateDocument } from '../firebase/firebase.js';
 
 const re = /^[0-9\b]+$/;
+const auth = getAuth();
 
-const AddCoinModal = () => {
+const AddCoinModal = () => { 
   const [value, setValue] = useState(0);
   const {coin} = useContext(CoinContext);
   const [price, setPrice] = useState(Math.floor(coin.price));
 
-  const handlePriceChange = (event) => {
+  const handlePriceChange = (event) =>{
     if (event.target.value === '' || re.test(event.target.value)) {
       setPrice(event.target.value);
     }
@@ -25,8 +26,10 @@ const AddCoinModal = () => {
   }
 
   const handleSave = async () => {
+    const userID = auth.currentUser.uid;
+    console.log(coin.uuid)
+    updateDocument(userID, coin.uuid, parseInt(price), parseInt(value))
     // Add a new document in collection "portfolios"
-    setPrice("");
     setValue("");
   }
 

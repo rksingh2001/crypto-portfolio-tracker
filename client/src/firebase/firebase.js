@@ -35,7 +35,11 @@ getDocs(portfoliosRef)
     console.log(err.message);
   })
 
-export const setDocument = async (UUID, data) => {
+export const setDocument = async (UUID, coinUUID, buyPrice, totalBought) => {
+  const data = {[coinUUID]: {
+    "buyPrice": buyPrice,
+    "totalBought": totalBought
+  }}
   await setDoc(doc(db, "portfolios", UUID), {
     coins: data
   });
@@ -46,30 +50,40 @@ export const setDocument = async (UUID, data) => {
 export const updateDocument = async (UUID, coinUUID, buyPrice, totalBought) => {
   const docRef = doc(db, "portfolios", UUID);
   const docSnap = await getDoc(docRef);
+
+  if (typeof(buyPrice) != "number") {
+    console.log("error: buyPrice in updateDocument function only accepts number type.");
+  }
+
+  if (typeof(totalBought) != "number") {
+    console.log("error: totalBought in updateDocument function only accept number type.")
+  }
   
   let data;
+  // If the user data exists
   if (docSnap.exists()) {
     data = docSnap.data();
-  } else {
-    console.log("In updateDocument: No such document!");
-  }
-
-  if (data.coins[coinUUID]) { 
-    // buyPrice is the average price
-    buyPrice = (buyPrice*totalBought + data.coins[coinUUID].buyPrice*data.coins[coinUUID].totalBought)/(totalBought + data.coins[coinUUID].totalBought);
-    totalBought += data.coins[coinUUID].totalBought;
-    data.coins[coinUUID] = {
-      "buyPrice": buyPrice,
-      "totalBought": totalBought
+    // If the coin already exists
+    if (data.coins[coinUUID]) { 
+      // buyPrice is the average price
+      buyPrice = (buyPrice*totalBought + data.coins[coinUUID].buyPrice*data.coins[coinUUID].totalBought)/(totalBought + data.coins[coinUUID].totalBought);
+      totalBought += data.coins[coinUUID].totalBought;
+      data.coins[coinUUID] = {
+        "buyPrice": buyPrice,
+        "totalBought": totalBought
+      }
+    } else {
+      // If the coin doesn't already exists
+      data.coins[coinUUID] = {
+        "buyPrice": buyPrice,
+        "totalBought": totalBought
+      }
     }
+    await updateDoc(docRef, data);
   } else {
-    data.coins[coinUUID] = {
-      "buyPrice": buyPrice,
-      "totalBought": totalBought
-    }
+    // If the user doesn't already exists
+    setDocument(UUID, coinUUID, buyPrice, totalBought)
   }
-
-  await updateDoc(docRef, data)
 }
 
 export const auth = getAuth(app);
