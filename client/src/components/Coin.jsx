@@ -3,7 +3,7 @@ import millify from 'millify';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/system';
 import getCoinApi from '../api/getCoin';
-import { Avatar, Typography, Grid, Card, Divider, CardContent, CardHeader, Link } from '@mui/material';
+import { Avatar, Typography, Grid, Card, Divider, CardContent, CardHeader, Container, Link } from '@mui/material';
 
 const Coin = () => {
   const { CoinUUID } = useParams();
@@ -14,7 +14,7 @@ const Coin = () => {
       const response = await getCoinApi.get("/" + CoinUUID);
       setCoin(response?.data?.coin);
       console.log(response?.data?.coin?.links);
-      };
+    };
     try {
       getCoin();
     } catch (error) {
@@ -23,7 +23,7 @@ const Coin = () => {
   }, [CoinUUID]);
 
   return (
-    <>
+    <Container className="coin-page">
       <Box height="100px" />
       {coin ? <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -62,7 +62,7 @@ const Coin = () => {
           </Card>
         </Grid>
       </Grid> : null}
-    </>
+    </Container>
   )
 }
 

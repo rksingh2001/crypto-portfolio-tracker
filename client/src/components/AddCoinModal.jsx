@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import millify from 'millify';
 import { Avatar, Button, Grid, TextField, Typography } from '@mui/material';
 import { CoinContext } from './App';
+// import { portfoliosRef } from '../firebase/firebase.js';
+// import { doc, setDoc } from 'firebase/firestore';
 
 const re = /^[0-9\b]+$/;
 
@@ -22,7 +24,8 @@ const AddCoinModal = () => {
     }
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    // Add a new document in collection "portfolios"
     setPrice("");
     setValue("");
   }
