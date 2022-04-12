@@ -22,24 +22,29 @@ const app = firebase.initializeApp({
 
 const db = getFirestore();
 export const portfoliosRef = collection(db, 'portfolios');
-getDocs(portfoliosRef)
-  .then((snapshot) => {
-    let books = [];
-    console.log(snapshot);
-    snapshot.docs.forEach((doc) => {
-      books.push({ ...doc.data(), id: doc.id });
-    })
-    console.log(books);
-  })
-  .catch(err => {
-    console.log(err.message);
-  })
+
+export const auth = getAuth(app);
+
+export const getDocument = async (UUID) => {
+  const docRef = doc(db, "portfolios", UUID);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data()?.coins);
+    return docSnap.data()?.coins;
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+}
 
 export const setDocument = async (UUID, coinUUID, buyPrice, totalBought) => {
-  const data = {[coinUUID]: {
-    "buyPrice": buyPrice,
-    "totalBought": totalBought
-  }}
+  const data = {
+    [coinUUID]: {
+      "buyPrice": buyPrice,
+      "totalBought": totalBought
+    }
+  }
   await setDoc(doc(db, "portfolios", UUID), {
     coins: data
   });
@@ -51,22 +56,22 @@ export const updateDocument = async (UUID, coinUUID, buyPrice, totalBought) => {
   const docRef = doc(db, "portfolios", UUID);
   const docSnap = await getDoc(docRef);
 
-  if (typeof(buyPrice) != "number") {
+  if (typeof (buyPrice) != "number") {
     console.log("error: buyPrice in updateDocument function only accepts number type.");
   }
 
-  if (typeof(totalBought) != "number") {
+  if (typeof (totalBought) != "number") {
     console.log("error: totalBought in updateDocument function only accept number type.")
   }
-  
+
   let data;
   // If the user data exists
   if (docSnap.exists()) {
     data = docSnap.data();
     // If the coin already exists
-    if (data.coins[coinUUID]) { 
+    if (data.coins[coinUUID]) {
       // buyPrice is the average price
-      buyPrice = (buyPrice*totalBought + data.coins[coinUUID].buyPrice*data.coins[coinUUID].totalBought)/(totalBought + data.coins[coinUUID].totalBought);
+      buyPrice = (buyPrice * totalBought + data.coins[coinUUID].buyPrice * data.coins[coinUUID].totalBought) / (totalBought + data.coins[coinUUID].totalBought);
       totalBought += data.coins[coinUUID].totalBought;
       data.coins[coinUUID] = {
         "buyPrice": buyPrice,
@@ -86,5 +91,4 @@ export const updateDocument = async (UUID, coinUUID, buyPrice, totalBought) => {
   }
 }
 
-export const auth = getAuth(app);
 export default app;
