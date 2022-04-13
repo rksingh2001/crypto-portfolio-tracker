@@ -20,17 +20,19 @@ const Portfolio = () => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        coinsID = await getDocument(uid);
+        coinsID = await getDocument(uid)
         // Calling an asynchronous function inside another asynchrous function
         // A better approach would be to use Promise.all
         // let coins = await Promise.all(
         // Object.keys(coinIds).map(cid => getCoinApi.get(...).then(res => res.data.coin))
         // )
         // setCoins(coins)
-        getCoin();
+        if (coinsID)
+            getCoin();
       } else {
         // User is signed out
-        console.log("Signed Out")
+        console.log("Signed Out");
+        setPortfolio([]);
       }
     });
 
