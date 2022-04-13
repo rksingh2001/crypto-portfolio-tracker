@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import millify from 'millify';
-
-import { Avatar, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCoinButton from './AddCoinButton';
 import { NavLink } from 'react-router-dom';
 
@@ -31,9 +32,23 @@ const CoinCard = ({ coin, userData }) => {
             <AddCoinButton setLinkAllowance={setLinkAllowance} coinData={coin} />
           </div>
           <CardContent>
-            <Typography color="gray" variant="subtitle1">
-              {userData ? "You Own: $" + millify(coin.price*userData.totalBought) : "You Own: $0"}
-            </Typography>
+            <Box style={{margin: "0px", padding: "0px", display: "flex", justifyContent: "left"}}>
+              <Typography color="gray" variant="subtitle1">
+                {userData ? "You Own: $" + millify(coin.price*userData.totalBought) : "You Own: $0"}
+              </Typography>
+              {userData && <>
+                {userData.buyPrice >= coin.price ? 
+                <>
+                  <ArrowDropUpIcon color="success" fontSize="medium" />
+                  <Typography color="gray" variant="subtitle2">{"(" + ((userData.buyPrice-coin.price)/coin.price*100).toFixed(2) + "%)"}</Typography>
+                </>
+                :
+                <>
+                  <ArrowDropDownIcon color="error" style={{ marginTop: "1px" }} fontSize="medium" />
+                  <Typography color="gray" variant="subtitle2">{"(" + ((userData.buyPrice-coin.price)/coin.price*100).toFixed(2) + "%)"}</Typography>
+                </>}
+              </>}
+            </Box>
             <Typography color="gray" variant="subtitle1">
               {"Market Cap: $" + millify(coin.marketCap)}
             </Typography>
