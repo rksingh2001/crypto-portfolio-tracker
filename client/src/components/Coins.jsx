@@ -72,7 +72,7 @@ const Portfolio = () => {
           </Grid>
           {coinsData.map(coin => (
             <Grid key={coin.uuid} className="coin" item xs={6} md={4} lg={3}>
-              <CoinCard coin={coin} />
+              <CoinCard coin={coin} userData={null} />
             </Grid>
           ))}
           <Grid display="flex" justifyContent="center" item xs={12}>

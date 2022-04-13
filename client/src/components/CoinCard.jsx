@@ -5,7 +5,7 @@ import { Avatar, Card, CardActionArea, CardContent, CardHeader, Typography } fro
 import AddCoinButton from './AddCoinButton';
 import { NavLink } from 'react-router-dom';
 
-const CoinCard = ({ coin }) => {
+const CoinCard = ({ coin, userData }) => {
   // This state is used to see if the mouse is on the AddCoinButton
   // or not as in that case we disable NavLink because we want the
   // Modal to open instead of the Coin Page to open
@@ -17,8 +17,8 @@ const CoinCard = ({ coin }) => {
         <CardActionArea>
           <div className="custom-header" style={{
             display: "flex",
-            justifyContent:"center",
-            alignItems:"center"
+            justifyContent: "center",
+            alignItems: "center"
           }}>
             <CardHeader
               title={coin.name}
@@ -26,11 +26,14 @@ const CoinCard = ({ coin }) => {
               avatar={
                 <Avatar src={coin.iconUrl} />
               }
-              style={{width: "60%"}}
+              style={{ width: "60%" }}
             />
             <AddCoinButton setLinkAllowance={setLinkAllowance} coinData={coin} />
           </div>
           <CardContent>
+            <Typography color="gray" variant="subtitle1">
+              {userData ? "You Own: $" + millify(coin.price*userData.totalBought) : "You Own: $0"}
+            </Typography>
             <Typography color="gray" variant="subtitle1">
               {"Market Cap: $" + millify(coin.marketCap)}
             </Typography>
