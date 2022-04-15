@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import millify from 'millify';
 import { Avatar, Box, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCoinButton from './AddCoinButton';
 import { NavLink } from 'react-router-dom';
+import { coinProfit } from '../utils/coinProfit';
 
 const CoinCard = ({ coin, userData }) => {
   // This state is used to see if the mouse is on the AddCoinButton
@@ -40,12 +41,12 @@ const CoinCard = ({ coin, userData }) => {
                 {userData.buyPrice < coin.price ? 
                 <>
                   <ArrowDropUpIcon color="success" fontSize="medium" />
-                  <Typography color="gray" variant="subtitle2">{"(" + ((coin.price-userData.buyPrice)/userData.buyPrice*100).toFixed(2) + "%)"}</Typography>
+                  <Typography color="gray" variant="subtitle2">{"(" + coinProfit(coin, userData) + "%)"}</Typography>
                 </>
                 :
                 <>
                   <ArrowDropDownIcon color="error" style={{ marginTop: "1px" }} fontSize="medium" />
-                  <Typography color="gray" variant="subtitle2">{"(" + ((coin.price-userData.buyPrice)/userData.buyPrice*100).toFixed(2) + "%)"}</Typography>
+                  <Typography color="gray" variant="subtitle2">{"(" + coinProfit(coin, userData)  + "%)"}</Typography>
                 </>}
               </>}
             </Box>

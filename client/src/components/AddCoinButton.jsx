@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
-import { CoinContext, DialogContext } from './App';
+import { CoinContext, DialogContext } from '../App';
 
 const AddCoinButton = ({ coinData, setLinkAllowance }) => {
   const {setCoin} = useContext(CoinContext);

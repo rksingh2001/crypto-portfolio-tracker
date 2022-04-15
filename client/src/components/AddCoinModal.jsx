@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import millify from 'millify';
 import { Avatar, Button, Grid, TextField, Typography } from '@mui/material';
-import { CoinContext } from './App';
+import { CoinContext } from '../App';
 import { getAuth } from "firebase/auth";
 import { updateDocument } from '../firebase/firebase.js';
 

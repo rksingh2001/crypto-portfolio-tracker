@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal, indigo } from '@mui/material/colors';
 
-import App from './components/App';
+import App from './App';
 
 const theme = createTheme({
   palette: {
