@@ -30,11 +30,11 @@ export const getDocument = async (UUID) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data()?.coins);
+    // console.log("Document data:", docSnap.data()?.coins);
     return docSnap.data()?.coins;
   } else {
     // doc.data() will be undefined in this case
-    console.log("No such document!");
+    // console.log("No such document!");
     return null;
   }
 }

@@ -37,15 +37,15 @@ const CoinCard = ({ coin, userData }) => {
                 {userData ? "You Own: $" + millify(coin.price*userData.totalBought) : "You Own: $0"}
               </Typography>
               {userData && <>
-                {userData.buyPrice >= coin.price ? 
+                {userData.buyPrice < coin.price ? 
                 <>
                   <ArrowDropUpIcon color="success" fontSize="medium" />
-                  <Typography color="gray" variant="subtitle2">{"(" + ((userData.buyPrice-coin.price)/coin.price*100).toFixed(2) + "%)"}</Typography>
+                  <Typography color="gray" variant="subtitle2">{"(" + ((coin.price-userData.buyPrice)/userData.buyPrice*100).toFixed(2) + "%)"}</Typography>
                 </>
                 :
                 <>
                   <ArrowDropDownIcon color="error" style={{ marginTop: "1px" }} fontSize="medium" />
-                  <Typography color="gray" variant="subtitle2">{"(" + ((userData.buyPrice-coin.price)/coin.price*100).toFixed(2) + "%)"}</Typography>
+                  <Typography color="gray" variant="subtitle2">{"(" + ((coin.price-userData.buyPrice)/userData.buyPrice*100).toFixed(2) + "%)"}</Typography>
                 </>}
               </>}
             </Box>
