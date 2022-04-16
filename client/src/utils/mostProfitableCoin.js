@@ -1,9 +1,15 @@
-// Returns the ID of the emost profitable coin
+// Returns the ID of the most profitable coin
 export const mostProfitableCoin = (userCoinsData, portfolio) => {
   let profitable_coin = "";
   let profit = Number.MIN_VALUE;
 
-  Object.keys(userCoinsData).forEach(coinID => {
+  // Taking userCoinsData insteead of portfolio will give error
+  // portfolio[coinID] is undefined
+  const coinKeys = Object.keys(portfolio);
+  if (coinKeys.length === 0) return profitable_coin;
+
+  // The coinID element should exist both in portfolio and userCoinsData
+  coinKeys.forEach(coinID => {
     const curr = portfolio[coinID].price;
     const buyPrice = userCoinsData[coinID].buyPrice;
 

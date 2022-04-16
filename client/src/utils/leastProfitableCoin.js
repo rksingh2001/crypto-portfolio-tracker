@@ -3,7 +3,11 @@ export const leastProfitableCoin = (userCoinsData, portfolio) => {
   let profitable_coin = "";
   let profit = Number.MAX_VALUE;
 
-  Object.keys(userCoinsData).forEach(coinID => {
+  // Taking userCoinsData insteead of portfolio will give error
+  // portfolio[coinID] is undefined
+  const coinKeys = Object.keys(portfolio);
+
+  coinKeys.forEach(coinID => {
     const curr = portfolio[coinID].price;
     const buyPrice = userCoinsData[coinID].buyPrice;
 
