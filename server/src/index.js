@@ -43,7 +43,9 @@ app.get("/search-suggestions", async (req, res) => {
 
 app.get("/coin/:uuid", async (req, res) => {
   try {
-    const response = await coinrankingAPI.get(req.path)
+    const response = await coinrankingAPI.get(req.path, {
+      params: req.query
+    })
     res.send(response?.data?.data);
   } catch (error) {
     console.log("error on fetching /coin/:uuid", error);

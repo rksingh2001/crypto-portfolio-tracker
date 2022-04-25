@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Box } from '@mui/system';
 import getCoinApi from '../api/getCoin';
 import { Avatar, Typography, Grid, Card, Divider, CardContent, CardHeader, Container, Link } from '@mui/material';
-import { Line } from 'react-chartjs-2';
-import {Chart as ChartJS} from 'chart.js/auto';
+import LineChart from '../components/LineChart';
 
 // const chartData = {
 //   labels: [1, 2],
@@ -19,6 +18,7 @@ import {Chart as ChartJS} from 'chart.js/auto';
 const Coin = () => {
   const { CoinUUID } = useParams();
   const [coin, setCoin] = useState(null);
+  const [timePeriod, setTimePeriod] = useState("24h");
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [{
@@ -26,13 +26,20 @@ const Coin = () => {
       data: []
     }]
   })
-  console.log(chartData)
 
+  const setTime = (time) => {
+    console.log(time)
+    setTimePeriod(time);
+  }
+ 
   useEffect(() => {
     const getCoin = async () => {
-      const response = await getCoinApi.get("/" + CoinUUID);
+      const response = await getCoinApi.get("/" + CoinUUID, {
+        params: {
+          timePeriod: timePeriod
+        }
+      });
       setCoin(response?.data?.coin);
-      console.log(response?.data?.coin?.sparkline);
       const sparklineData = response?.data?.coin?.sparkline;
       const lineData = {
         labels: sparklineData.map((value, id) => (id)),
@@ -49,7 +56,7 @@ const Coin = () => {
     } catch (error) {
       console.log("error in CoinCard getCoin function", error);
     }
-  }, [CoinUUID]);
+  }, [CoinUUID, timePeriod]);
 
   return (
     <Container className="coin-page">
@@ -75,7 +82,7 @@ const Coin = () => {
                   <Link underline="hover" variant="subtitle1" href={coin.websiteUrl}>Website Link</Link>
                 </Grid>
                 <Grid item xs={7}>
-                  <Line data={chartData} />
+                  <LineChart chartData ={chartData} setTime={setTime} />
                 </Grid>
                 <Grid item xs={1}></Grid>
               </Grid>
