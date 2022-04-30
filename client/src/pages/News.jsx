@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 const News = () => {
   return (
     <Box>
+      <Box height="100px" />
       News
     </Box>
   )
