@@ -6,8 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const COINRANKING_API_URL="https://api.coinranking.com/v2/";
-const { COINRANKING_API_KEY } = process.env;
-const X_RAPID_API_KEY = '56feb89c5dmshe38c40aa429a5a0p17fbc9jsnff8cc27381de';
+const { COINRANKING_API_KEY, X_RAPID_API_KEY } = process.env;
 
 const app = express();
 
@@ -54,31 +53,8 @@ app.get("/coin/:uuid", async (req, res) => {
   }
 })
 
-const bingNewsOptions = {
-  method: 'GET',
-  url: 'https://bing-news-search1.p.rapidapi.com/news',
-  params: {textFormat: 'Raw', safeSearch: 'Off'},
-  headers: {
-    'X-BingApis-SDK': 'true',
-    'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com',
-    'X-RapidAPI-Key': X_RAPID_API_KEY
-  }
-};
-
 // For some reason Bing News Search API doesn't work
 // properly with axios.create() and get() methods
-
-app.get("/news", async (req, res) => {
-  try {
-    axios.request(bingNewsOptions).then(function (response) {
-      res.send(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
-  } catch (error) {
-    console.log("error on fetching /news", error);
-  }
-})
 
 const bingNewsSearchOptions = {
   method: 'GET',
@@ -87,7 +63,7 @@ const bingNewsSearchOptions = {
   headers: {
     'X-BingApis-SDK': 'true',
     'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com',
-    'X-RapidAPI-Key': '56feb89c5dmshe38c40aa429a5a0p17fbc9jsnff8cc27381de'
+    'X-RapidAPI-Key': X_RAPID_API_KEY
   }
 };
 
