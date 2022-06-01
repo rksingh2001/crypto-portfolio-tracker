@@ -70,7 +70,9 @@ const bingNewsSearchOptions = {
 app.get("/news-search", async (req, res) => {
   try {
     const options = bingNewsSearchOptions;
-    options.params.q = req.query.query
+    options.params.q = req.query.query;
+    options.params.count = req.query.count;
+    options.params.offset = req.query.offset;
     axios.request(options).then(function (response) {
       res.send(response.data);
     }).catch(function (error) {
