@@ -3,7 +3,7 @@ import millify from 'millify';
 import { NavLink } from 'react-router-dom';
 import { Avatar, Button, Card, CardActionArea, TextField, Grid, Typography, List, ListItem, ListItemButton, ListItemText, ListItemIcon, CardHeader } from '@mui/material';
 import searchApi from '../api/search';
-import AddCoinButton from './AddCoinButton';
+import AddCoinButton from './AddCoinCardButton';
 import { DialogContext } from '../App';
 
 const Search = ({ setIsSearchOpen }) => {

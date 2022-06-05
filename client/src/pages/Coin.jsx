@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import getCoinApi from '../api/getCoin';
 import { Avatar, Typography, Grid, Card, Divider, CardContent, CardHeader, Container, Link } from '@mui/material';
 import LineChart from '../components/LineChart';
+import AddCoinButton from '../components/AddCoinPageButton';
 
 // const chartData = {
 //   labels: [1, 2],
@@ -31,7 +32,7 @@ const Coin = () => {
     console.log(time)
     setTimePeriod(time);
   }
- 
+
   useEffect(() => {
     const getCoin = async () => {
       const response = await getCoinApi.get("/" + CoinUUID, {
@@ -64,12 +65,22 @@ const Coin = () => {
       {coin ? <Grid container spacing={3}>
         <Grid item xs={12}>
           <Card variant="outlined">
-            <CardHeader
-              title={<Typography variant="h4" color="secondary">{coin.name}</Typography>}
-              avatar={
-                <Avatar src={coin.iconUrl} />
-              }
-            />
+            <div className="custom-header" style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingLeft: "10px",
+              paddingRight: "30px",
+              alignItems: "center"
+            }}>
+              <CardHeader
+                title={<Typography variant="h4" color="secondary">{coin.name}</Typography>}
+                style={{ width: "60%" }}
+                avatar={
+                  <Avatar src={coin.iconUrl} />
+                }
+              />
+              <AddCoinButton coinData={coin} />
+            </div>
             <Divider />
             <CardContent>
               <Grid container spacing={0}>
@@ -82,7 +93,7 @@ const Coin = () => {
                   <Link underline="hover" variant="subtitle1" href={coin.websiteUrl}>Website Link</Link>
                 </Grid>
                 <Grid item xs={7}>
-                  <LineChart chartData ={chartData} setTime={setTime} />
+                  <LineChart chartData={chartData} setTime={setTime} />
                 </Grid>
                 <Grid item xs={1}></Grid>
               </Grid>

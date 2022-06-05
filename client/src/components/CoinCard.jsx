@@ -3,7 +3,7 @@ import millify from 'millify';
 import { Avatar, Box, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import AddCoinButton from './AddCoinButton';
+import AddCoinButton from './AddCoinCardButton';
 import { NavLink } from 'react-router-dom';
 import { coinProfit } from '../utils/coinProfit';
 
