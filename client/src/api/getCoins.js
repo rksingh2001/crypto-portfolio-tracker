@@ -7,7 +7,7 @@ import axios from 'axios';
 const COINRANKING_API_URL = "http://localhost:8080"
 
 export default axios.create({
-  baseURL: COINRANKING_API_URL + "/coins",
+  baseURL: process.env.REACT_APP_API_URL + "/coins",
 })
 
 // export default axios.create({
