@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Avatar, Button, Box, AppBar, Typography, Grid, Container, Dialog, DialogContent, IconButton, Popover } from '@mui/material';
+import { Avatar, Button, Box, AppBar, Typography, Grid, Container, Dialog, DialogContent, IconButton, MenuItem, Popover, Select } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SearchIcon from '@mui/icons-material/Search';
 import Search from './Search';
 import { auth } from '../firebase/firebase';
 import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import CurrencySelector from './CurrencySelector';
 
 const provider = new GoogleAuthProvider();
 
@@ -67,8 +68,6 @@ const Header = () => {
                 </Typography>
               </Container>
             </Grid>
-            <Grid xs={1} item>
-            </Grid>
             <Grid item>
               <Button onClick={handleSearchOpen} size="medium" variant="outlined" color="inherit"><SearchIcon color="inherit" /></Button>
             </Grid>
@@ -82,32 +81,35 @@ const Header = () => {
               <Button component={NavLink} to="/News" size="medium" variant="outlined" color="inherit">News</Button>
             </Grid>
             <Grid item>
+               <CurrencySelector />
+            </Grid>
+            <Grid item>
               {imageURL ?
                 <>
-                <IconButton style={{ height: "40px", width:"40px" }} onClick={handlePopoverClick}>
-                  <Avatar alt="userprofile" src={imageURL} onCLick={handlePopoverClick} />
-                </IconButton>
-                <Popover
-                  open={Boolean(anchorEl)}
-                  anchorEl={anchorEl}
-                  onClose={handlePopoverClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                >
-                  <Button onClick={handleSignOut} size="medium" variant="outlined" color="inherit"> Sign Out</Button>
-                </Popover>
+                  <IconButton style={{ height: "40px", width: "40px" }} onClick={handlePopoverClick}>
+                    <Avatar alt="userprofile" src={imageURL} onCLick={handlePopoverClick} />
+                  </IconButton>
+                  <Popover
+                    open={Boolean(anchorEl)}
+                    anchorEl={anchorEl}
+                    onClose={handlePopoverClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                  >
+                    <Button onClick={handleSignOut} size="medium" variant="outlined" color="inherit"> Sign Out</Button>
+                  </Popover>
                 </>
-              : 
+                :
                 <Button onClick={handleSignIn} size="medium" variant="outlined" color="inherit">
                   Sign In
                 </Button>
-              } 
+              }
             </Grid>
           </Grid>
         </Container>

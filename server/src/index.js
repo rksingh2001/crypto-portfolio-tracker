@@ -10,7 +10,6 @@ const { COINRANKING_API_KEY, X_RAPID_API_KEY } = process.env;
 
 const app = express();
 
-console.log(COINRANKING_API_KEY);
 const coinrankingAPI = axios.create({
   baseURL: COINRANKING_API_URL,
   headers: {
