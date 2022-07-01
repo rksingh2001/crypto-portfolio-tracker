@@ -11,7 +11,7 @@ const AddCoinButton = ({ coinData, setLinkAllowance }) => {
     setIsDialogOpen(true);
     if (coinData)
       console.log(typeof(setCoin), coinData);
-      setCoin(coinData);
+    setCoin(coinData);
   }
 
   const handleMouseEnter = () => {

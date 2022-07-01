@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import millify from 'millify';
 import { Avatar, Box, Card, CardActionArea, CardContent, CardHeader, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
@@ -6,12 +6,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCoinButton from './AddCoinCardButton';
 import { NavLink } from 'react-router-dom';
 import { coinProfit } from '../utils/coinProfit';
+import { CurrencyContext } from '../App';
 
 const CoinCard = ({ coin, userData }) => {
   // This state is used to see if the mouse is on the AddCoinButton
   // or not as in that case we disable NavLink because we want the
   // Modal to open instead of the Coin Page to open
   const [isLinkAllowed, setLinkAllowance] = useState(true);
+  const {currency} = useContext(CurrencyContext);
 
   return (
     <NavLink style={{ textDecoration: "none" }} to={isLinkAllowed ? `/Coins/${coin.uuid}` : ""} >

@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const COINRANKING_API_URL="https://api.coinranking.com/v2/";
+const COINRANKING_API_URL = "https://api.coinranking.com/v2/";
 const { COINRANKING_API_KEY, X_RAPID_API_KEY } = process.env;
 
 const app = express();
@@ -15,7 +15,7 @@ const coinrankingAPI = axios.create({
   headers: {
     'x-access-token': COINRANKING_API_KEY
   },
-})
+});
 
 
 app.use(cors());
@@ -35,12 +35,12 @@ app.get("/search-suggestions", async (req, res) => {
   try {
     const response = await coinrankingAPI.get(req.path, {
       params: req.query
-    }); 
+    });
     res.send(response?.data?.data);
   } catch (error) {
     console.log("error on fetching /search-suggestions", error);
   }
-})
+});
 
 app.get("/coin/:uuid", async (req, res) => {
   try {
@@ -51,7 +51,7 @@ app.get("/coin/:uuid", async (req, res) => {
   } catch (error) {
     console.log("error on fetching /coin/:uuid", error);
   }
-})
+});
 
 // For some reason Bing News Search API doesn't work
 // properly with axios.create() and get() methods
@@ -59,7 +59,7 @@ app.get("/coin/:uuid", async (req, res) => {
 const bingNewsSearchOptions = {
   method: 'GET',
   url: 'https://bing-news-search1.p.rapidapi.com/news/search',
-  params: {safeSearch: 'Off', textFormat: 'Raw', freshness: 'Day'},
+  params: { safeSearch: 'Off', textFormat: 'Raw', freshness: 'Day' },
   headers: {
     'X-BingApis-SDK': 'true',
     'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com',
@@ -76,14 +76,33 @@ app.get("/news-search", async (req, res) => {
     axios.request(options).then(function (response) {
       res.send(response.data);
     }).catch(function (error) {
-      console.error(error);
+      console.error("error on axios request of bingNewsSearchAPI", error);
     });
   } catch (error) {
     console.log("error on fetching /news/search", error);
   }
+});
+
+const options = {
+  method: 'GET',
+  url: 'https://currency-converter18.p.rapidapi.com/api/v1/convert',
+  params: { from: 'USD', to: 'USD', amount: '1' },
+  headers: {
+    'X-RapidAPI-Key': X_RAPID_API_KEY,
+    'X-RapidAPI-Host': 'currency-converter18.p.rapidapi.com'
+  }
+};
+
+app.get("/convert-currency", async (req, res) => {
+  options.params.to = req.query.to;
+  axios.request(options).then(function (response) {
+    res.send(response.data);
+  }).catch(function (error) {
+    console.log("error on axios request of /convert-currency", error);
+  });
 })
 
 let port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log("Listening on Port 8080");
-})
+});

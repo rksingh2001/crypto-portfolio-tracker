@@ -1,11 +1,14 @@
 import React from 'react';
 import millify from 'millify';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Box, Card, CardContent, CardHeader, Container, Divider, Grid, Pagination, Typography } from '@mui/material';
 
 import getCoinsApi from '../api/getCoins';
 
 import CoinCard from '../components/CoinCard';
+
+import { ConversionRateContext } from '../App';
+import { CurrencySymbolContext } from '../App';
 
 const Portfolio = () => {
   const [coinsStats, setCoinsStats] = useState({
@@ -17,16 +20,31 @@ const Portfolio = () => {
   });
   const [coinsData, setCoinsData] = useState([]);
   const [page, setPage] = useState(1);
+  const { conversionRate } = useContext(ConversionRateContext);
+  const { currencySymbol } = useContext(CurrencySymbolContext);
 
   useEffect(() => {
     try {
+      const convertStatsCurrency = (stats) => {
+        stats.totalMarketCap = conversionRate*stats.totalMarketCap;
+        stats.total24hVolume = conversionRate*stats.total24hVolume;
+      }
+      const convertCoinsCurrencies = (currencies) => {
+        currencies.forEach(curr => {
+          curr["24hVolume"] = conversionRate*curr["24hVolume"];
+          curr.price = conversionRate*curr.price;
+          curr.marketCap = conversionRate*curr.marketCap;
+        })
+      }
       const getCoins = async () => {
-        const response = await getCoinsApi.get("/", {
+        let response = await getCoinsApi.get("/", {
           params: {
             limit: 12,
             offset: 12 * (page - 1)
           }
         });
+        convertStatsCurrency(response?.data?.stats);
+        convertCoinsCurrencies(response?.data?.coins);
         setCoinsData(response?.data?.coins);
         setCoinsStats(response?.data?.stats);
       }
@@ -34,7 +52,7 @@ const Portfolio = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [page])
+  }, [conversionRate, page])
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -53,16 +71,16 @@ const Portfolio = () => {
               <Divider />
               <CardContent>
                 <Typography variant="subtitle1" color="inherit">
-                  Total Coins: {millify(coinsStats.total)}
+                  Total Coins: {coinsStats.total}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
-                  Total MarketCap: {"$" + millify(coinsStats.totalMarketCap)}
+                  Total MarketCap: {currencySymbol + millify(coinsStats.totalMarketCap)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
                   Total Markets: {millify(coinsStats.totalMarkets)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit" >
-                  Total Last 24 hr Volume: {"$" + millify(coinsStats.total24hVolume)}
+                  Total Last 24 hr Volume: {currencySymbol + millify(coinsStats.total24hVolume)}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
                   Total Exchanges: {millify(coinsStats.totalExchanges)}
