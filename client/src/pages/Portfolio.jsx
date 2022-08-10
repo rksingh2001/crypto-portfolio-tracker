@@ -48,13 +48,15 @@ const Portfolio = () => {
         userCoinsData = await getDocument(uid);
         // Promise.all creates an array of promises and returns it once they all are fulfilled
         // Before Setting the portfolio we convert array into object with coinID as the key
-        const coins = await Promise.all(Object.keys(userCoinsData).map(coinID => getCoinApi.get("/" + coinID).then(res => res?.data?.coin)));
-        setPortfolio(coins.reduce((obj, coin) => {
-          return {
-            ...obj,
-            [coin["uuid"]]: coin,
-          };
-        }, {}))
+        if (userCoinsData) {
+          const coins = await Promise.all(Object.keys(userCoinsData).map(coinID => getCoinApi.get("/" + coinID).then(res => res?.data?.coin)));
+          setPortfolio(coins.reduce((obj, coin) => {
+            return {
+              ...obj,
+              [coin["uuid"]]: coin,
+            };
+          }, {}))
+        }
       } else {
         // User is signed out
         setPortfolio({});
@@ -75,17 +77,17 @@ const Portfolio = () => {
               <Divider />
               <CardContent>
                 <Typography variant="subtitle1" color="inherit">
-                  Number of Coins Owned: {Object.keys(userCoinsData).length}
+                  Number of Coins Owned: {userCoinsData ? Object.keys(userCoinsData).length : 0}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
-                  Total Portfolio Value: ${millify(portfolioValue(userCoinsData, portfolio))}
+                  Total Portfolio Value: ${userCoinsData ? millify(portfolioValue(userCoinsData, portfolio)) : 0}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
-                  Overall Profit: {(profitPercentage(userCoinsData, portfolio)).toFixed(2)}%
+                  Overall Profit: {userCoinsData ? (profitPercentage(userCoinsData, portfolio)).toFixed(2) : 0}%
                 </Typography>
                 <Box style={{ margin: "0px", padding: "0px", display: "flex", justifyContent: "left" }}>
                   <Typography variant="subtitle1" color="inherit" >
-                    Most Profitable Coin: {portfolio[mostProfitable]?.name}
+                    Most Profitable Coin: {userCoinsData ? portfolio[mostProfitable]?.name : "None"}
                   </Typography>
                   {mostProfitable && <>
                     {userCoinsData[mostProfitable].buyPrice < portfolio[mostProfitable].price ?
@@ -95,7 +97,7 @@ const Portfolio = () => {
                     }
                   </>}
                   <Typography variant="subtitle1" color="inherit">
-                    ({coinProfit(portfolio[mostProfitable], userCoinsData[mostProfitable])}%)
+                    ({userCoinsData ? coinProfit(portfolio[mostProfitable], userCoinsData[mostProfitable]) : 0}%)
                   </Typography>
                 </Box>
                 <Box style={{ margin: "0px", padding: "0px", display: "flex", justifyContent: "left" }}>
@@ -110,7 +112,7 @@ const Portfolio = () => {
                     }
                   </>}
                   <Typography variant="subtitle1" color="inherit">
-                    ({coinProfit(portfolio[leastProfitable], userCoinsData[leastProfitable])}%)
+                    ({userCoinsData ? coinProfit(portfolio[leastProfitable], userCoinsData[leastProfitable]) : 0}%)
                   </Typography>
                 </Box>
               </CardContent>
