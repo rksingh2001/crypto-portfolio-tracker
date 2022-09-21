@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box } from '@mui/system';
 import { Card, CardContent, CardHeader, Divider, Container, Grid, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
@@ -14,8 +14,14 @@ import { profitPercentage } from '../utils/profitPercentage.js';
 import { mostProfitableCoin } from '../utils/mostProfitableCoin.js';
 import { leastProfitableCoin } from '../utils/leastProfitableCoin.js';
 import { coinProfit } from '../utils/coinProfit.js';
+import { convertCurrency } from '../utils/convertCurrency';
+
+import { ConversionRateContext } from '../App';
+import { CurrencySymbolContext } from '../App';
 
 let userCoinsData = {};
+
+// Format in which data is stored for future referneces
 
 // userCoinsData
 // {
@@ -31,13 +37,15 @@ let userCoinsData = {};
 //   coinID: {
 //      price: Number
 //      other details about the price 
-//    }
+//    }, ...
 // }
 
 const Portfolio = () => {
   const [portfolio, setPortfolio] = useState({});
   const mostProfitable = mostProfitableCoin(userCoinsData, portfolio);
   const leastProfitable = leastProfitableCoin(userCoinsData, portfolio);
+  const { currencySymbol } = useContext(CurrencySymbolContext);
+  const { conversionRate } = useContext(ConversionRateContext);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -80,7 +88,7 @@ const Portfolio = () => {
                   Number of Coins Owned: {userCoinsData ? Object.keys(userCoinsData).length : 0}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
-                  Total Portfolio Value: ${userCoinsData ? millify(portfolioValue(userCoinsData, portfolio)) : 0}
+                  Total Portfolio Value: {userCoinsData ? currencySymbol + millify(convertCurrency(portfolioValue(userCoinsData, portfolio), conversionRate)) : 0}
                 </Typography>
                 <Typography variant="subtitle1" color="inherit">
                   Overall Profit: {userCoinsData ? (profitPercentage(userCoinsData, portfolio)).toFixed(2) : 0}%

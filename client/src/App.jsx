@@ -10,7 +10,7 @@ import Coin from './pages/Coin';
 import Header from './components/Header';
 import AddCoinModal from './components/AddCoinModal';
 
-import { handleCurrencyChange } from './utils/handleCurrencyChange';
+import { getCurrencyExchangeRate } from './utils/getCurrencyExchangeRate';
 
 import CurrencyList from "../src/assets/currency-list.json";
 
@@ -27,14 +27,10 @@ const App = () => {
   const [conversionRate, setConversionRate] = useState(1);
   const [currencySymbol, setCurrencySymbol] = useState("$");
 
-  console.log(currency);
-  console.log(currencySymbol);
-  console.log(conversionRate);
-
   useEffect(() => {
     setCurrencySymbol(CurrencyList[currency]["symbol"]);
     const getConversionRate = async () => {
-      const rate = await handleCurrencyChange(currency, 1);
+      const rate = await getCurrencyExchangeRate(currency);
       setConversionRate(rate);
     }
     getConversionRate();  
