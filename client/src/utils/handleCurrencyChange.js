@@ -12,6 +12,7 @@ const getCurrencyExchangeRate = async (curr) => {
       }
     })
     if (response.data.success) {
+      console.log(response.data.result.convertedAmount);
       return response.data.result.convertedAmount;
     }
     else {

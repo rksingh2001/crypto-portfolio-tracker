@@ -23,31 +23,34 @@ const Portfolio = () => {
   const { conversionRate } = useContext(ConversionRateContext);
   const { currencySymbol } = useContext(CurrencySymbolContext);
 
+  const convertStatsCurrency = (stats) => {
+    stats.totalMarketCap = conversionRate*stats.totalMarketCap;
+    stats.total24hVolume = conversionRate*stats.total24hVolume;
+  }
+
+  const convertCoinsCurrencies = (currencies) => {
+    currencies.forEach(curr => {
+      curr["24hVolume"] = conversionRate*curr["24hVolume"];
+      curr.price = conversionRate*curr.price;
+      curr.marketCap = conversionRate*curr.marketCap;
+    })
+  }
+  
+  const getCoins = async () => {
+    let response = await getCoinsApi.get("/", {
+      params: {
+        limit: 12,
+        offset: 12 * (page - 1)
+      }
+    });
+    convertStatsCurrency(response?.data?.stats);
+    convertCoinsCurrencies(response?.data?.coins);
+    setCoinsData(response?.data?.coins);
+    setCoinsStats(response?.data?.stats);
+  }
+
   useEffect(() => {
     try {
-      const convertStatsCurrency = (stats) => {
-        stats.totalMarketCap = conversionRate*stats.totalMarketCap;
-        stats.total24hVolume = conversionRate*stats.total24hVolume;
-      }
-      const convertCoinsCurrencies = (currencies) => {
-        currencies.forEach(curr => {
-          curr["24hVolume"] = conversionRate*curr["24hVolume"];
-          curr.price = conversionRate*curr.price;
-          curr.marketCap = conversionRate*curr.marketCap;
-        })
-      }
-      const getCoins = async () => {
-        let response = await getCoinsApi.get("/", {
-          params: {
-            limit: 12,
-            offset: 12 * (page - 1)
-          }
-        });
-        convertStatsCurrency(response?.data?.stats);
-        convertCoinsCurrencies(response?.data?.coins);
-        setCoinsData(response?.data?.coins);
-        setCoinsStats(response?.data?.stats);
-      }
       getCoins();
     } catch (error) {
       console.log(error);

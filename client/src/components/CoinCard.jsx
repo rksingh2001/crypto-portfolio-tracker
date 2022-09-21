@@ -6,14 +6,16 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCoinButton from './AddCoinCardButton';
 import { NavLink } from 'react-router-dom';
 import { coinProfit } from '../utils/coinProfit';
-import { CurrencyContext } from '../App';
+
+import { CurrencySymbolContext } from '../App';
+import { useEffect } from 'react';
 
 const CoinCard = ({ coin, userData }) => {
   // This state is used to see if the mouse is on the AddCoinButton
   // or not as in that case we disable NavLink because we want the
   // Modal to open instead of the Coin Page to open
   const [isLinkAllowed, setLinkAllowance] = useState(true);
-  const {currency} = useContext(CurrencyContext);
+  const { currencySymbol } = useContext(CurrencySymbolContext);
 
   return (
     <NavLink style={{ textDecoration: "none" }} to={isLinkAllowed ? `/Coins/${coin.uuid}` : ""} >
@@ -26,7 +28,7 @@ const CoinCard = ({ coin, userData }) => {
           }}>
             <CardHeader
               title={coin.name}
-              subheader={"$" + millify(coin.price)}
+              subheader={currencySymbol + millify(coin.price)}
               avatar={
                 <Avatar src={coin.iconUrl} />
               }
@@ -37,7 +39,7 @@ const CoinCard = ({ coin, userData }) => {
           <CardContent>
             <Box style={{margin: "0px", padding: "0px", display: "flex", justifyContent: "left"}}>
               <Typography color="gray" variant="subtitle1">
-                {userData ? "You Own: $" + millify(coin.price*userData.totalBought) : "You Own: $0"}
+                {userData ? "You Own: " + currencySymbol + millify(coin.price*userData.totalBought) : "You Own: " + currencySymbol + "0"}
               </Typography>
               {userData && <>
                 {userData.buyPrice < coin.price ? 
@@ -53,10 +55,10 @@ const CoinCard = ({ coin, userData }) => {
               </>}
             </Box>
             <Typography color="gray" variant="subtitle1">
-              {"Market Cap: $" + millify(coin.marketCap)}
+              {"Market Cap: " + currencySymbol + millify(coin.marketCap)}
             </Typography>
             <Typography color="gray" variant="subtitle1">
-              {"Current Volume: $" + millify(coin["24hVolume"])}
+              {"Current Volume: " + currencySymbol + millify(coin["24hVolume"])}
             </Typography>
           </CardContent>
         </CardActionArea>

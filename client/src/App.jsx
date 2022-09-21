@@ -27,6 +27,7 @@ const App = () => {
   const [conversionRate, setConversionRate] = useState(1);
   const [currencySymbol, setCurrencySymbol] = useState("$");
 
+  console.log(currency);
   console.log(currencySymbol);
   console.log(conversionRate);
 
