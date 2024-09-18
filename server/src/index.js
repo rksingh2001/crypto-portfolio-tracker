@@ -20,6 +20,10 @@ const coinrankingAPI = axios.create({
 
 app.use(cors());
 
+app.get("/ping", (req, res) => {
+  res.send("pong");
+})
+
 app.get("/coins", async (req, res) => {
   try {
     const response = await coinrankingAPI.get(req.path, {
